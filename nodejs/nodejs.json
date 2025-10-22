@@ -25,7 +25,7 @@
     "files": "{}",
     "startup": "{}",
     "logs": "{}",
-    "stop": "SIGINT"
+    "stop": "STOP"
   },
   "scripts": {
     "installation": {
