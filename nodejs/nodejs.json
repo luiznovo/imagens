@@ -6,7 +6,7 @@
   "exported_at": "2025-10-21T18:00:00+00:00",
   "name": "Node.js Generic",
   "author": "info@skyport.dev",
-  "description": "Node.js is a runtime environment that enables JavaScript code to run outside of web browsers. This image supports multiple Node.js versions, customizable main file, package installation, and user uploads.",
+  "description": "Node.js é um ambiente de execução JavaScript fora do navegador. Esta imagem suporta múltiplas versões, instalação automática de pacotes e execução customizada pelo usuário. Adaptado para o padrão Gratian.pro.",
   "docker_images": {
     "Nodejs 24": "ghcr.io/pelican-eggs/yolks:nodejs_24",
     "Nodejs 23": "ghcr.io/pelican-eggs/yolks:nodejs_23",
@@ -25,7 +25,7 @@
     "files": "{}",
     "startup": "{}",
     "logs": "{}",
-    "stop": "^C"
+    "stop": "SIGINT"
   },
   "scripts": {
     "installation": {
@@ -37,93 +37,93 @@
   "variables": [
     {
       "name": "Main file",
-      "description": "The file that starts the app (.js or .ts).",
+      "description": "Arquivo principal que inicia a aplicação (.js ou .ts).",
       "env_variable": "MAIN_FILE",
       "default_value": "index.js",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["required","string","max:16"]
+      "rules": ["required", "string", "max:32"]
     },
     {
       "name": "Additional Node Packages",
-      "description": "Install extra Node packages. Use spaces to separate.",
+      "description": "Pacotes Node.js extras a instalar (separados por espaço).",
       "env_variable": "NODE_PACKAGES",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string"]
+      "rules": ["nullable", "string"]
     },
     {
       "name": "Uninstall Node Packages",
-      "description": "Uninstall Node packages. Use spaces to separate.",
+      "description": "Pacotes Node.js a desinstalar (separados por espaço).",
       "env_variable": "UNNODE_PACKAGES",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string"]
+      "rules": ["nullable", "string"]
     },
     {
       "name": "Additional Arguments",
-      "description": "Extra arguments for nodejs or ts-node",
+      "description": "Argumentos adicionais para nodejs ou ts-node.",
       "env_variable": "NODE_ARGS",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string","max:64"]
+      "rules": ["nullable", "string", "max:128"]
     },
     {
       "name": "Auto Update",
-      "description": "Pull latest files on startup if using a GitHub repo.",
+      "description": "Atualiza os arquivos via git pull automaticamente (1 = sim, 0 = não).",
       "env_variable": "AUTO_UPDATE",
       "default_value": "0",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["required","boolean"]
+      "rules": ["required", "boolean"]
     },
     {
       "name": "Git Repo Address",
-      "description": "GitHub Repo to clone, e.g., https://github.com/user/repo",
+      "description": "Endereço do repositório Git a ser clonado (ex: https://github.com/user/repo).",
       "env_variable": "GIT_ADDRESS",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string"]
+      "rules": ["nullable", "string"]
     },
     {
       "name": "Git Username",
-      "description": "Username to auth with git.",
+      "description": "Usuário para autenticação no Git.",
       "env_variable": "USERNAME",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string"]
+      "rules": ["nullable", "string"]
     },
     {
       "name": "Git Access Token",
-      "description": "Personal Access Token for git.",
+      "description": "Token de acesso pessoal para autenticação no Git.",
       "env_variable": "ACCESS_TOKEN",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string"]
+      "rules": ["nullable", "string"]
     },
     {
       "name": "Install Branch",
-      "description": "Branch to install.",
+      "description": "Branch do repositório a ser instalada.",
       "env_variable": "BRANCH",
       "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["nullable","string"]
+      "rules": ["nullable", "string"]
     },
     {
       "name": "User Uploaded Files",
-      "description": "Skip install steps if user uploads files (0=false, 1=true)",
+      "description": "Ignorar instalação se o usuário enviar arquivos (0=falso, 1=verdadeiro).",
       "env_variable": "USER_UPLOAD",
       "default_value": "0",
       "user_viewable": true,
       "user_editable": true,
-      "rules": ["required","boolean"]
+      "rules": ["required", "boolean"]
     }
   ]
 }
