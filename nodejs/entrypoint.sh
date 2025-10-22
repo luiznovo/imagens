@@ -10,6 +10,24 @@ export INTERNAL_IP
 # Mostra a versão do Node.js
 node -v
 
+# Preparar cache e prefixo do npm com permissões corretas
+mkdir -p /home/container/.npm-cache /home/container/.npm-global || true
+export NPM_CONFIG_CACHE=/home/container/.npm-cache
+export npm_config_cache=/home/container/.npm-cache
+export NPM_CONFIG_PREFIX=/home/container/.npm-global
+export PATH="/home/container/.npm-global/bin:$PATH"
+
+# Instala/desinstala pacotes adicionais definidos por variáveis
+if [ -n "${NODE_PACKAGES:-}" ]; then
+    echo "Instalando pacotes adicionais: $NODE_PACKAGES"
+    npm install -g ${NODE_PACKAGES} --no-audit --loglevel=warn || echo "Aviso: falha ao instalar pacotes adicionais"
+fi
+
+if [ -n "${UNNODE_PACKAGES:-}" ]; then
+    echo "Desinstalando pacotes: $UNNODE_PACKAGES"
+    npm uninstall -g ${UNNODE_PACKAGES} --loglevel=warn || echo "Aviso: falha ao desinstalar pacotes"
+fi
+
 # Verifica se MAIN_FILE está definido
 if [ -z "${MAIN_FILE:-}" ]; then
     echo "Erro: MAIN_FILE não está definido."
@@ -17,7 +35,7 @@ if [ -z "${MAIN_FILE:-}" ]; then
 fi
 
 # Evita path traversal
-if echo "$MAIN_FILE" | grep -q "\.\./"; then
+if echo "$MAIN_FILE" | grep -q "\../"; then
     echo "Erro: path traversal detectado! Comando bloqueado."
     exit 1
 fi
